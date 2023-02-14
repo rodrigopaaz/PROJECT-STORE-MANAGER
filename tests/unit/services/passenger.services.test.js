@@ -6,7 +6,7 @@ const connection = require('../../../src/models/connection');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { products } = require('../../mocks/passenger.mock')
+const { products, newProduct } = require('../../mocks/products.mock')
 const { productsService } = require('../../../src/services');
 const { productsModel } = require('../../../src/models');
 
@@ -27,5 +27,11 @@ describe('Testes de unidade da camada services', function () {
     sinon.stub(productsModel, 'findById').resolves(undefined)
     const findById = await productsModel.findById(1);
         expect(findById).to.be.deep.equal(undefined);
-  }) 
+      }) 
+   it('Adicionando item ao products', async function () {
+    sinon.stub(productsModel, 'create').resolves([{ insertId: 50 }]);
+     const result = await productsService.create(newProduct);
+     const { message } = result;
+    expect(message[0]['insertId']).to.equal(50);
+  })
 })
