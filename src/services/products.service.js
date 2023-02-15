@@ -15,10 +15,10 @@ const findById = async (id) => {
   return { type: null, message: products };
 };
 
-const create = async (name) => {
-  const error = validateProduct(name);
+const create = async (element) => {
+  const error = validateProduct(element);
   if (error.type) return error;
-  const products = await productsModel.create(name);
+  const products = await productsModel.create(element);
   return { type: null, message: products };
 };
 
