@@ -31,7 +31,8 @@ const create = async (element) => {
   if (errors.type) {
     return { type: 'NOT_FOUND', message: 'Product not found' };
   }
-   const sales = await salesModel.create(element);
+  const sales = await salesModel.create(element);
+  console.log(sales);
   return { type: null, message: sales };
 };
 
