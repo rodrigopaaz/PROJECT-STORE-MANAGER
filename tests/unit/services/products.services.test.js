@@ -34,5 +34,21 @@ describe('Testes de unidade da camada services', function () {
      const result = await productsService.create(name);
      const { message } = result;
     expect(message).to.equal(50);
-  })
+   })
+     it('Testings products validation [name] bigger than or equal to 5', async function () {
+     sinon.stub(productsModel, 'create').resolves(50);
+     const {name} = newProduct
+     const result = await productsService.create('name');
+     const { message } = result;
+    expect(message).to.equal('"name" length must be at least 5 characters long');
+     })
+  
+       it('Testings products validation [name] not null', async function () {
+     sinon.stub(productsModel, 'create').resolves(50);
+     const {name} = newProduct
+     const result = await productsService.create('');
+     const { message } = result;
+    expect(message).to.equal('"name" is not allowed to be empty');
+       })
+  
 })

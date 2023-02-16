@@ -28,5 +28,11 @@ describe('Testes de unidade da camada models', function () {
     const result = await productsModel.create(newProduct);
     expect(result).to.equal(50);
   })
+
+    it('Adicionando item ao products', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 50 }]);
+    const result = await productsModel.create('');
+    expect(result).to.equal(50);
+  })
   
 })

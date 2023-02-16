@@ -68,4 +68,16 @@ describe('Testes de unidade da camada controllers', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(newProductMock);
   })
+
+    it('Testing products controller validations', async function () {
+     const res = {}
+     const req = {
+      body: newProduct
+    }
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productsService, 'create').resolves({ type: 'NOT_FOUND', message: 51 });
+    await productsController.addProduct(req, res);
+    expect(res.status).to.have.been.calledWith(404);
+  })
 })
