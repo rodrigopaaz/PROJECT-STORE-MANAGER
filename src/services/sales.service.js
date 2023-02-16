@@ -1,5 +1,5 @@
 const { salesModel } = require('../models');
-const { validateSales } = require('./validations/schemas');
+// const { validateSales } = require('./validations/schemas');
 const { getItems, checkError } = require('./validations/validateRegister');
 
 /* const findAll = async () => {
