@@ -29,9 +29,10 @@ describe('Testes de unidade da camada services', function () {
         expect(findById).to.be.deep.equal(undefined);
       }) 
    it('Adicionando item ao products', async function () {
-    sinon.stub(productsModel, 'create').resolves([{ insertId: 50 }]);
-     const result = await productsService.create(newProduct);
+     sinon.stub(productsModel, 'create').resolves(50);
+     const {name} = newProduct
+     const result = await productsService.create(name);
      const { message } = result;
-    expect(message[0]['insertId']).to.equal(50);
+    expect(message).to.equal(50);
   })
 })

@@ -7,7 +7,6 @@ const getItems = async () => {
 };
 
 const checkError = (element) => {
-  console.log(element, 'asdfhohsafosdihi');
   let errors = { type: null, message: '' }; 
   element.forEach((e) => {
     const error = validateSales(e);
