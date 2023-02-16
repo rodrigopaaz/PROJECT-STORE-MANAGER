@@ -3,15 +3,15 @@ const { salesController } = require('../controllers');
 
 const router = express.Router();
 
-/* router.get(
+ router.get(
   '/',
-  productsController.listProducts,
+  salesController.listProducts,
 );
 
 router.get(
   '/:id',
-  productsController.getProduct,
-); */
+  salesController.getProduct,
+); 
 
 router.post(
   '/',
