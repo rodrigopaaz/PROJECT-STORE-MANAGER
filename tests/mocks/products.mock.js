@@ -12,7 +12,6 @@ const products = [
     "name": "Escudo do Capitão América"
   }
 ];
-
 const newProduct = {
   name: "Mascara do Hulk"
 }
