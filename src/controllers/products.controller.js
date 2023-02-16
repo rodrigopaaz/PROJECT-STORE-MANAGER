@@ -1,6 +1,16 @@
 const { productsService } = require('../services');
 const errorMap = require('../utils/errorMap');
 
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const { type, message } = await productsService.update(id, name);
+
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
+
+  res.status(200).json(message);
+};
+
 const listProducts = async (_req, res) => {
   const { type, message } = await productsService.findAll();
 
@@ -32,4 +42,5 @@ module.exports = {
   listProducts,
   getProduct,
   addProduct,
+  updateProduct,
 };

@@ -14,7 +14,6 @@ const getProduct = async (req, res) => {
   const { type, message } = await salesService.findById(id);
 
   if (type) return res.status(errorMap.mapError(type)).json({ message });
-  console.log(message);
   res.status(200).json([...message]);
 };
  
