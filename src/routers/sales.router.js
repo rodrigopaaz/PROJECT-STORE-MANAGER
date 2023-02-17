@@ -18,4 +18,14 @@ router.post(
   salesController.addSales,
 );
 
+/* router.put(
+  '/:id',
+  salesController.updateSale,
+); */
+
+router.delete(
+  '/:id',
+  salesController.removeSale,
+);
+
 module.exports = router;

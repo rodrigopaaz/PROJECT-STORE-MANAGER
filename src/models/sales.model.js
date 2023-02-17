@@ -44,8 +44,25 @@ const create = async (sales) => {
   itemsSold: productSales }; 
 };
 
+/* const update = async (id, newData) => {
+  const [result] = await connection.execute(
+    'UPDATE products SET name = ? WHERE id = ?',
+    [newData, id],
+  );
+  return result;
+}; */
+
+const deleteSale = async (id) => {
+  const [result] = await connection.execute(
+    'DELETE FROM sales_products WHERE sale_id = ?',
+    [id],
+  );
+  return result;
+};
+
 module.exports = {
   create,
   findAll,
   findById,
+  deleteSale,
 };
