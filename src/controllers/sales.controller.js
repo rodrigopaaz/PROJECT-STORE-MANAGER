@@ -36,19 +36,21 @@ const removeSale = async (req, res) => {
   return res.status(204).json();
 };
 
-/* const updateSale = async (req, res) => {
+const updateSale = async (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
-  const { type, message } = await productsService.update(id, name);
+  const sales = req.body;
+  const { type, message } = await salesService.update(sales, id);
+   if (type) {
+      return res.status(errorMap.mapError(type)).json({ message });
+  } 
 
-  if (type) return res.status(errorMap.mapError(type)).json({ message });
-
-  res.status(200).json(message);
-}; */
+  return res.status(200).json({ saleId: id, itemsUpdated: sales });
+};
 
 module.exports = {
   addSales,
   listProducts,
   getProduct,
   removeSale,
+  updateSale,
 };

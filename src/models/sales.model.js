@@ -44,13 +44,16 @@ const create = async (sales) => {
   itemsSold: productSales }; 
 };
 
-/* const update = async (id, newData) => {
-  const [result] = await connection.execute(
-    'UPDATE products SET name = ? WHERE id = ?',
-    [newData, id],
-  );
+const update = async (data) => {
+  const [result] = await Promise.all(data.map(async (e) => {
+    const updatedData = await connection.execute(
+      'UPDATE sales_products SET quantity = ? WHERE product_id = ?',
+      [e.quantity, e.productId],
+    );
+    return updatedData;
+  })); 
   return result;
-}; */
+}; 
 
 const deleteSale = async (id) => {
   const [result] = await connection.execute(
@@ -65,4 +68,5 @@ module.exports = {
   findAll,
   findById,
   deleteSale,
+  update,
 };

@@ -35,15 +35,23 @@ const create = async (element) => {
   return { type: null, message: sales };
 };
 
-/* const update = async (id, newData) => {
-    const error = validateProduct(newData);
-  if (error.type) return error;
-  const result = await productsModel.update(id, newData);
-  if (!result.affectedRows) {
-   return { type: 'NOT_FOUND', message: 'Product not found' }; 
+const update = async (element, id) => {
+  const checkId = await getItems();
+  const ids = checkId.message.map((e) => e.id);
+  let errors = { type: null, message: '' };
+  if (!ids.includes(Number(id))) { return { type: 'NOT_FOUND', message: 'Sale not found' }; }
+  const errorValidate = checkError(element);
+  if (errorValidate.type) return errorValidate;
+  const elementIds = element.map((e) => e.productId);
+    elementIds.forEach((el) => {
+    if (!ids.includes(el)) { errors = { type: 'NOT_FOUND', message: 'Sale not found' }; }
+  }); 
+  if (errors.type) {
+    return { type: 'NOT_FOUND', message: 'Product not found' };
   }
-  return { type: '', message: { id, name: newData } };
-}; */
+    const sales = await salesModel.update(element);
+  return { type: null, message: sales };
+}; 
 
 const deleteSale = async (id) => {
   const remove = await salesModel.deleteSale(id);
@@ -58,4 +66,5 @@ module.exports = {
   findAll,
   findById,
   deleteSale,
+  update,
 };
