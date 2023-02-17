@@ -6,7 +6,7 @@ const connection = require('../../../src/models/connection');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const {products, newProduct} = require('../../mocks/products.mock')
+const {products, newProduct, updatedProduct} = require('../../mocks/products.mock')
 const { productsModel } = require('../../../src/models');
 
 describe('Testes de unidade da camada models', function () {
@@ -27,12 +27,15 @@ describe('Testes de unidade da camada models', function () {
     sinon.stub(connection, 'execute').resolves([{ insertId: 50 }]);
     const result = await productsModel.create(newProduct);
     expect(result).to.equal(50);
-  })
-
-    it('Adicionando item ao products', async function () {
-    sinon.stub(connection, 'execute').resolves([{ insertId: 50 }]);
-    const result = await productsModel.create('');
-    expect(result).to.equal(50);
-  })
-  
+  });
+    it('Atualizando os produtos do db pelo id', async function () {
+    sinon.stub(connection, 'execute').resolves([updatedProduct])
+    const update = await productsModel.update(1, updatedProduct);
+    expect(update).to.be.deep.equal({ id:1, name: updatedProduct.name});
+    });
+    it('Excluindo os produtos do db pelo id', async function () {
+    sinon.stub(connection, 'execute').resolves('')
+    const remove = await productsModel.deleteProduct(1);
+    expect(remove).to.be.deep.equal();
+    });
 })

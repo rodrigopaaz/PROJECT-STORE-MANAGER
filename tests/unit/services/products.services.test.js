@@ -6,7 +6,7 @@ const connection = require('../../../src/models/connection');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { products, newProduct } = require('../../mocks/products.mock')
+const { products, newProduct, updatedProduct } = require('../../mocks/products.mock')
 const { productsService } = require('../../../src/services');
 const { productsModel } = require('../../../src/models');
 
@@ -50,5 +50,25 @@ describe('Testes de unidade da camada services', function () {
      const { message } = result;
     expect(message).to.equal('"name" is not allowed to be empty');
        })
+        it('Atualizando os produtos do db pelo id', async function () {
+          sinon.stub(productsModel, 'update').resolves({ affectedRows: 1})
+          const update = await productsService.update(1, updatedProduct.name);
+    expect(update.message).to.be.deep.equal({ id:1, name: updatedProduct.name});
+    });
+      it('Atualizando os produtos do db com id inválido', async function () {
+    sinon.stub(productsModel, 'update').resolves([updatedProduct])
+    const update = await productsService.update(1, updatedProduct);
+    expect(update.type).to.be.deep.equal("BAD_REQUEST");
+      });
+          it('Excluindo os produtos do db pelo id', async function () {
+          sinon.stub(productsModel, 'deleteProduct').resolves({affectedRows: 1})
+          const { type } = await productsService.deleteProduct(1);
+          expect( type ).to.be.deep.equal('');
+    });
+        it('Excluindo os produtos do db com id inválido', async function () {
+          sinon.stub(productsModel, 'deleteProduct').resolves(1)
+          const update = await productsService.deleteProduct(updatedProduct);
+    expect(update.type).to.be.deep.equal('NOT_FOUND');
+    });
   
 })

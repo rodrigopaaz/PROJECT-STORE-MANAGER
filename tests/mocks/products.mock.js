@@ -16,10 +16,16 @@ const newProduct = {
   name: "Mascara do Hulk"
 }
 
+const updatedProduct =   {
+    "id": 1,
+    "name": "Martelo de Chapolin"
+  }
+
 const newProductMock = { id: 51, ...newProduct };
 
 module.exports = {
   products,
   newProduct,
-  newProductMock
+  newProductMock,
+  updatedProduct
 }
