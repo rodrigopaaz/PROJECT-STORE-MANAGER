@@ -14,6 +14,13 @@ const findById = async (id) => {
   );
   return result; 
 };
+const findByQuery = async (query) => {
+  console.log(query);
+  const [result] = await connection.execute(
+    `SELECT * FROM products WHERE name LIKE '${query}%';`,
+);
+  return result;
+};
 
 const create = async (name) => {
   const [result] = await connection.execute(
@@ -45,4 +52,5 @@ module.exports = {
   create,
   update,
   deleteProduct,
+  findByQuery,
 };

@@ -15,6 +15,15 @@ const findById = async (id) => {
   return { type: null, message: products };
 };
 
+const findByQuery = async (query) => {
+  const products = await productsModel.findByQuery(query);
+  if (!products) {
+    return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  }
+
+  return { type: null, message: products };
+};
+
 const create = async (element) => {
   const error = validateProduct(element);
   if (error.type) return error;
@@ -46,4 +55,5 @@ module.exports = {
   create,
   update,
   deleteProduct,
+  findByQuery,
 };
